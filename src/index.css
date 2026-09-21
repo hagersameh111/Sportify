@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-surface-light text-surface-dark font-sans antialiased;
+}
+
+.eyebrow {
+  @apply text-xs font-bold tracking-[0.2em] uppercase text-magenta font-mono;
+}
+
+.explore-link {
+  @apply text-xs font-bold tracking-[0.15em] uppercase underline underline-offset-4 decoration-1 hover:text-violet-650 transition-colors;
+}
