@@ -84,7 +84,7 @@ export default function Navbar() {
               Log In
             </a>
             <a
-              href="#join"
+              href="/register"
               className="bg-violet-600 text-white text-sm font-bold tracking-wider px-5 py-2.5 rounded-lg"
             >
               JOIN NOW
