@@ -154,6 +154,14 @@ export const teams = [
   },
 ];
 
+teams.forEach((team) => {
+  team.cities = team.city === "Abu Dhabi" ? ["Abu Dhabi", "Dubai"] : [team.city];
+  team.coaches = [
+    { name: "Ahmed Hassan", role: "Head Coach", image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80" },
+    { name: "Mariam Khaled", role: "Team Captain", image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80" },
+  ];
+});
+
 export const experienceLevels = [
   "Beginner",
   "Intermediate",

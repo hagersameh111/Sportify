@@ -1,9 +1,22 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 
 export default function SignInPage() {
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+  const [params] = useSearchParams();
+  const [message, setMessage] = useState("");
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const account = JSON.parse(localStorage.getItem("sportifyUser") || "null");
+    const email = new FormData(event.currentTarget).get("email");
+    if (!account || account.email !== email) {
+      setMessage("We couldn't find an account with that email. Create an account to continue.");
+      return;
+    }
+    navigate(params.get("next") || "/");
+  };
 
   return (
     <div className="min-h-screen bg-[#f7f7f7] flex items-center justify-center px-6 py-16">
@@ -47,7 +60,7 @@ export default function SignInPage() {
               Enter your account details to continue.
             </p>
 
-            <form className="space-y-5">
+            <form onSubmit={handleSubmit} className="space-y-5">
               <div>
                 <label className="block text-sm font-bold mb-2">
                   Email Address
@@ -55,6 +68,8 @@ export default function SignInPage() {
 
                 <input
                   type="email"
+                  name="email"
+                  required
                   placeholder="john@email.com"
                   className="w-full h-14 border border-zinc-300 rounded-xl px-4 outline-none focus:border-violet-500"
                 />
@@ -68,6 +83,8 @@ export default function SignInPage() {
                 <div className="relative">
                   <input
                     type={showPassword ? "text" : "password"}
+                    name="password"
+                    required
                     placeholder="••••••••"
                     className="w-full h-14 border border-zinc-300 rounded-xl px-4 pr-12 outline-none focus:border-violet-500"
                   />
@@ -108,6 +125,7 @@ export default function SignInPage() {
               >
                 Sign In
               </button>
+              {message && <p role="status" className="text-sm text-red-600">{message}</p>}
             </form>
 
             <div className="relative my-8">
@@ -131,9 +149,9 @@ export default function SignInPage() {
 
             <p className="mt-8 text-center text-sm text-zinc-500">
               Don't have an account?{" "}
-              <span className="text-violet-600 font-semibold cursor-pointer">
+              <Link to={`/signup${params.get("next") ? `?next=${encodeURIComponent(params.get("next"))}` : ""}`} className="text-violet-600 font-semibold">
                 Create One
-              </span>
+              </Link>
             </p>
           </div>
         </div>

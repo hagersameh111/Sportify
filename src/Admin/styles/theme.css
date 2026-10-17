@@ -1,0 +1,66 @@
+/* ============================================================
+   THEME - the ONLY file that contains raw colors / fonts / radii.
+   Components use semantic utilities (bg-primary, text-muted ...).
+   White-label / SaaS tenants override the --c-* vars:
+     [data-theme="tenant-x"] { --c-primary: #0f766e; }
+   ============================================================ */
+:root {
+  /* Brand palette */
+  --c-primary: #2f1673;      --c-primary-fg: #ffffff;
+  --c-secondary: #c737e4;    --c-secondary-fg: #ffffff;
+  --c-tertiary: #1f63f3;     --c-tertiary-fg: #ffffff;
+  --c-highlight: #f0a5ff;    --c-highlight-fg: #261755;
+
+  /* accent = links, required stars, progress, small highlights */
+  --c-accent: var(--c-secondary);  --c-accent-fg: var(--c-secondary-fg);
+
+  /* Dark surfaces (sidebar, dark cards, black buttons) */
+  --c-dark: #0d0f12;         --c-dark-fg: #ffffff;
+
+  /* Gradient used on main CTAs (blue -> violet) */
+  --gradient-from: var(--c-tertiary);
+  --gradient-to: var(--c-primary);
+  --gradient-brand: linear-gradient(90deg, var(--gradient-from), var(--gradient-to));
+
+  /* Neutrals: white page, lavender tint for panels */
+  --c-canvas: #ffffff;       --c-surface: #ffffff;   --c-subtle: #f6f3ff;
+  --c-border: #e9e4f5;       --c-ink: #0d0f12;       --c-muted: #5b5870;
+  --c-placeholder: #a9a4c2;
+
+  /* Status colors */
+  --c-info: var(--c-tertiary);  --c-info-soft: #dce7fe;
+  --c-success: #15803d; --c-success-soft: #dcfce7;
+  --c-warning: #a16207; --c-warning-soft: #fef9c3;
+  --c-danger: #b91c1c;  --c-danger-soft: #fee2e2;
+
+  /* Shape: sharp, like the public site */
+  --r-card: 4px;  --r-control: 2px;
+
+  --font-body: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, "JetBrains Mono", "SFMono-Regular", Menlo, monospace;
+}
+
+@theme inline {
+  --color-primary: var(--c-primary);     --color-primary-fg: var(--c-primary-fg);
+  --color-secondary: var(--c-secondary); --color-secondary-fg: var(--c-secondary-fg);
+  --color-tertiary: var(--c-tertiary);   --color-tertiary-fg: var(--c-tertiary-fg);
+  --color-highlight: var(--c-highlight); --color-highlight-fg: var(--c-highlight-fg);
+  --color-accent: var(--c-accent);       --color-accent-fg: var(--c-accent-fg);
+  --color-dark: var(--c-dark);           --color-dark-fg: var(--c-dark-fg);
+  --color-canvas: var(--c-canvas);       --color-surface: var(--c-surface);
+  --color-subtle: var(--c-subtle);       --color-line: var(--c-border);
+  --color-ink: var(--c-ink);             --color-muted: var(--c-muted);
+  --color-placeholder: var(--c-placeholder);
+  --color-info: var(--c-info);           --color-info-soft: var(--c-info-soft);
+  --color-success: var(--c-success);     --color-success-soft: var(--c-success-soft);
+  --color-warning: var(--c-warning);     --color-warning-soft: var(--c-warning-soft);
+  --color-danger: var(--c-danger);       --color-danger-soft: var(--c-danger-soft);
+  --radius-card: var(--r-card);          --radius-control: var(--r-control);
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-mono);
+}
+
+/* className="bg-brand-gradient" */
+@utility bg-brand-gradient {
+  background-image: var(--gradient-brand);
+}

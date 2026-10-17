@@ -1,238 +1,123 @@
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import {
-  Users,
-  Trophy,
-  Calendar,
-  ArrowLeft,
-} from "lucide-react";
-
+import { ArrowLeft, Calendar, Gauge, MapPin, Trophy, Users } from "lucide-react";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
-import JoinTeamModal from "./Components/JoinTeamModal";
-
+import JoinTeamModal from "./JoinTeamModal";
 import { teams } from "../../data/teams";
 
 export default function TeamDetailsPage() {
   const { id } = useParams();
-
   const [showModal, setShowModal] = useState(false);
-
-  const team = teams.find(
-    (item) => item.id === Number(id)
-  );
+  const team = teams.find((t) => t.id === Number(id));
 
   if (!team) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <h2 className="text-3xl font-bold">
-          Team Not Found
-        </h2>
-      </div>
+      <>
+        <Navbar />
+        <div className="flex min-h-[60vh] flex-col items-center justify-center gap-3">
+          <h1 className="text-2xl font-black">Team not found</h1>
+          <Link to="/teams" className="font-bold text-violet-700 hover:underline">Browse all teams</Link>
+        </div>
+        <Footer />
+      </>
     );
   }
 
+  const cities = team.cities?.join(", ") || team.city;
+  const stats = [
+    { icon: Trophy, label: "Sport", value: team.sport },
+    { icon: Users, label: "Members", value: team.members },
+    { icon: Calendar, label: "Founded", value: team.founded },
+    { icon: Gauge, label: "Level", value: team.level },
+    { icon: MapPin, label: "Cities", value: cities },
+  ].filter((s) => s.value);
+
   return (
-    <>
+    <div className="min-h-screen bg-zinc-50">
       <Navbar />
 
-      {/* HERO IMAGE */}
-      <section className="relative h-[420px] overflow-hidden">
-        <img
-          src={team.heroImage}
-          alt={team.name}
-          className="w-full h-full object-cover"
-        />
-
-        <div className="absolute inset-0 bg-black/50" />
-
+      <section className="relative h-[260px] overflow-hidden md:h-[320px]">
+        <img src={team.heroImage} alt="" className="h-full w-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
         <div className="absolute inset-0 flex items-end">
-          <div className="max-w-7xl mx-auto w-full px-6 lg:px-8 pb-12">
-            <Link
-              to="/teams"
-              className="inline-flex items-center gap-2 text-white mb-6 hover:text-[#d946ef]"
-            >
-              <ArrowLeft size={16} />
-              Back
+          <div className="mx-auto w-full max-w-7xl px-5 pb-8 lg:px-8">
+            <Link to="/teams" className="mb-4 inline-flex items-center gap-1.5 text-sm text-white/90 hover:text-white">
+              <ArrowLeft size={16} /> All teams
             </Link>
-
-            <p className="uppercase text-xs tracking-[0.25em] text-[#d946ef] font-bold mb-4">
-              {team.sport}
-            </p>
-
-            <h1 className="text-5xl md:text-7xl font-black italic uppercase text-white">
-              {team.name}
-            </h1>
+            <h1 className="text-4xl font-black italic uppercase leading-none text-white md:text-6xl">{team.name}</h1>
           </div>
         </div>
       </section>
 
-      {/* CONTENT */}
-      <section className="bg-[#f6f6f6] py-16">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid lg:grid-cols-[1fr_360px] gap-10">
-            {/* LEFT */}
-            <div>
-              {/* ABOUT */}
-              <div className="bg-white rounded-xl p-8 shadow-sm mb-8">
-                <h2 className="text-2xl font-black uppercase mb-5">
-                  About The Team
-                </h2>
-
-                <p className="text-zinc-600 leading-8">
-                  {team.description}
-                </p>
+      <section className="border-b border-zinc-200 bg-white">
+        <dl className="mx-auto grid max-w-7xl grid-cols-2 gap-x-6 gap-y-4 px-5 py-4 sm:grid-cols-3 lg:grid-cols-5 lg:px-8">
+          {stats.map(({ icon: Icon, label, value }) => (
+            <div key={label} className="flex items-center gap-3">
+              <Icon size={18} className="shrink-0 text-violet-600" />
+              <div className="min-w-0">
+                <dt className="text-xs text-zinc-500">{label}</dt>
+                <dd className="truncate text-sm font-bold text-zinc-900">{value}</dd>
               </div>
+            </div>
+          ))}
+        </dl>
+      </section>
 
-              {/* TRAINING */}
-              <div className="bg-white rounded-xl p-8 shadow-sm">
-                <h2 className="text-2xl font-black uppercase mb-6">
-                  Training Schedule
-                </h2>
+      <main className="mx-auto max-w-7xl px-5 py-8 lg:px-8">
+        <div className="grid gap-8 lg:grid-cols-[1fr_340px]">
+          <div className="space-y-8">
+            <section>
+              <h2 className="mb-3 text-xl font-black">About the team</h2>
+              <p className="max-w-3xl leading-7 text-zinc-600">{team.description}</p>
+            </section>
 
-                <div className="space-y-4">
-                  {team.schedule.map((item, index) => (
-                    <div
-                      key={index}
-                      className="border rounded-lg p-4 bg-zinc-50"
-                    >
-                      {item}
-                    </div>
+            {team.schedule?.length > 0 && (
+              <section>
+                <h2 className="mb-3 text-xl font-black">Training schedule</h2>
+                <ul className="divide-y divide-zinc-100 overflow-hidden rounded-xl border border-zinc-200 bg-white">
+                  {team.schedule.map((item, i) => <li key={i} className="px-4 py-3 text-sm text-zinc-700">{item}</li>)}
+                </ul>
+              </section>
+            )}
+
+            {team.coaches?.length > 0 && (
+              <section>
+                <h2 className="mb-3 text-xl font-black">Captains &amp; coaches</h2>
+                <div className="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4">
+                  {team.coaches.map((p) => (
+                    <article key={p.name} className="overflow-hidden rounded-xl border border-zinc-200 bg-white">
+                      <img src={p.image} alt={p.name} loading="lazy" className="aspect-[4/5] w-full object-cover" />
+                      <div className="p-3.5">
+                        <h3 className="font-bold leading-tight text-zinc-900">{p.name}</h3>
+                        <p className="mt-0.5 text-sm font-semibold text-violet-700">{p.role}</p>
+                        {p.bio && <p className="mt-2 line-clamp-3 text-xs leading-5 text-zinc-500">{p.bio}</p>}
+                      </div>
+                    </article>
                   ))}
                 </div>
-              </div>
-            </div>
-
-            {/* RIGHT SIDEBAR */}
-            <div>
-              <div className="bg-white rounded-xl shadow-sm overflow-hidden sticky top-28">
-                <img
-                  src={team.heroImage}
-                  alt={team.name}
-                  className="h-52 w-full object-cover"
-                />
-
-                <div className="p-6">
-                  <h3 className="font-black uppercase text-xl mb-6">
-                    {team.name}
-                  </h3>
-
-                  <div className="space-y-4 mb-8">
-                    <div className="flex items-center gap-3">
-                      <Trophy
-                        size={18}
-                        className="text-[#d946ef]"
-                      />
-                      <div>
-                        <p className="text-xs uppercase text-zinc-400">
-                          Sport
-                        </p>
-                        <p className="font-semibold">
-                          {team.sport}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-3">
-                      <Users
-                        size={18}
-                        className="text-[#d946ef]"
-                      />
-                      <div>
-                        <p className="text-xs uppercase text-zinc-400">
-                          Members
-                        </p>
-                        <p className="font-semibold">
-                          {team.members}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-3">
-                      <Calendar
-                        size={18}
-                        className="text-[#d946ef]"
-                      />
-                      <div>
-                        <p className="text-xs uppercase text-zinc-400">
-                          Founded
-                        </p>
-                        <p className="font-semibold">
-                          {team.founded}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div>
-                      <p className="text-xs uppercase text-zinc-400 mb-1">
-                        Level
-                      </p>
-
-                      <p className="font-semibold">
-                        {team.level}
-                      </p>
-                    </div>
-                  </div>
-
-                  <button
-                    onClick={() => setShowModal(true)}
-                    className="w-full bg-[#d946ef] hover:bg-[#c026d3] text-white font-bold py-4 rounded-lg transition"
-                  >
-                    Request To Join
-                  </button>
-
-                  <p className="text-xs text-zinc-500 mt-4 text-center">
-                    The team captain will review your
-                    request within 48 hours
-                  </p>
-                </div>
-              </div>
-            </div>
+              </section>
+            )}
           </div>
 
-          {/* STATS */}
-          <div className="grid md:grid-cols-3 gap-6 mt-10">
-            <div className="bg-white rounded-xl p-8 text-center shadow-sm">
-              <h3 className="text-5xl font-black text-[#d946ef]">
-                {parseInt(team.members)}
-              </h3>
-
-              <p className="uppercase tracking-widest text-sm text-zinc-500 mt-2">
-                Members
-              </p>
+          <aside>
+            <div className="sticky top-24 rounded-xl border border-zinc-200 bg-white p-6 shadow-sm">
+              <h2 className="text-lg font-black">{team.name}</h2>
+              <p className="mt-1 flex items-center gap-1.5 text-sm text-zinc-500"><MapPin size={14} />{cities}</p>
+              <button
+                onClick={() => setShowModal(true)}
+                className="mt-5 h-12 w-full rounded-lg bg-violet-600 font-bold text-white transition-colors hover:bg-violet-700 focus-visible:ring-2 focus-visible:ring-violet-300"
+              >
+                Join the team
+              </button>
+              <p className="mt-3 text-center text-xs text-zinc-500">The team captain reviews your request within 48 hours.</p>
             </div>
-
-            <div className="bg-white rounded-xl p-8 text-center shadow-sm">
-              <h3 className="text-5xl font-black text-[#d946ef]">
-                {team.founded}
-              </h3>
-
-              <p className="uppercase tracking-widest text-sm text-zinc-500 mt-2">
-                Founded
-              </p>
-            </div>
-
-            <div className="bg-white rounded-xl p-8 text-center shadow-sm">
-              <h3 className="text-4xl font-black text-[#d946ef]">
-                {team.level}
-              </h3>
-
-              <p className="uppercase tracking-widest text-sm text-zinc-500 mt-2">
-                Level
-              </p>
-            </div>
-          </div>
+          </aside>
         </div>
-      </section>
+      </main>
 
       <Footer />
-
-      {showModal && (
-        <JoinTeamModal
-          team={team}
-          onClose={() => setShowModal(false)}
-        />
-      )}
-    </>
+      {showModal && <JoinTeamModal team={team} onClose={() => setShowModal(false)} />}
+    </div>
   );
 }

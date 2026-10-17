@@ -393,4 +393,5 @@ export const upcomingEvents = [
 ].map((event, index) => ({
   ...event,
   id: index + 1,
+  country: event.city === "Madrid" ? "Spain" : event.city === "French Alps" ? "France" : "UAE",
 }));

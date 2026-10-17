@@ -1,34 +1,6 @@
-import { Crown, Flag, ArrowRight } from "lucide-react";
+import { ArrowRight, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
-
 export default function TeamCard({ team }) {
-  return (
-    <div className="bg-[#171b21] rounded-md p-6 min-h-[260px] flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
-      <div>
-        <div className="w-12 h-12 bg-white/10 rounded flex items-center justify-center mb-6">
-          {team.icon === "crown" ? (
-            <Crown size={18} className="text-white" />
-          ) : (
-            <Flag size={18} className="text-white" />
-          )}
-        </div>
-
-        <h3 className="text-white font-black italic uppercase text-3xl leading-tight">
-          {team.name}
-        </h3>
-
-        <p className="text-[#d946ef] text-xs uppercase tracking-[0.25em] mt-5">
-          {team.members}
-        </p>
-      </div>
-
-      <Link
-        to={`/teams/${team.id}`}
-        className="mt-8 inline-flex items-center gap-2 text-[#d946ef] text-sm font-bold uppercase"
-      >
-        View Team
-        <ArrowRight size={14} />
-      </Link>
-    </div>
-  );
+  const initials = team.name.split(/\s+/).slice(0, 2).map(word => word[0]).join("");
+  return <Link to={`/teams/${team.id}`} className="relative block min-h-[210px] rounded-lg overflow-hidden group"><img src={team.heroImage} alt="" className="absolute inset-0 w-full h-full object-cover transition-transform group-hover:scale-105"/><div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-black/10"/><div className="relative min-h-[210px] p-5 flex flex-col justify-between"><span className="w-12 h-12 rounded-full bg-white text-violet-700 font-black flex items-center justify-center shadow">{initials}</span><div><h2 className="text-white font-black italic uppercase text-xl leading-tight">{team.name}</h2><p className="text-white/80 text-xs mt-2"><MapPin size={13} className="inline"/> {team.cities?.join(", ") || team.city}</p><p className="text-fuchsia-300 text-[11px] uppercase tracking-wider mt-1">{team.members}</p><span className="inline-flex items-center gap-2 text-fuchsia-300 text-xs font-bold uppercase mt-3">View Team <ArrowRight size={14}/></span></div></div></Link>;
 }
