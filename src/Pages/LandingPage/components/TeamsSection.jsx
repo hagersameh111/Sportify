@@ -16,9 +16,11 @@ export default function TeamsSection() {
         </div>
           <Link to="/teams" className="text-sm font-bold text-violet-700 hover:underline">See all</Link>
         </div>
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-          {teams.slice(0, 8).map((team) => <TeamCard key={team.id} team={team} />)}
-        </div>
+        <div className="grid grid-cols-2 items-stretch gap-4 md:grid-cols-3 sm:grid-cols-2">
+  {teams.slice(0, 8).map((team) => (
+    <TeamCard key={team.id} team={team} />
+  ))}
+</div>
       </div>
     </section>
   );

@@ -18,17 +18,17 @@ export default function GallerySection() {
         </a>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {galleryImages.map((src, i) => (
-          <div key={i} className="aspect-square rounded-sm overflow-hidden">
-            <img
-              src={src}
-              alt="Community training moment"
-              className="h-full w-full object-cover hover:scale-105 transition-transform duration-300"
-            />
-          </div>
-        ))}
-      </div>
+   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+  {galleryImages.map((src, i) => (
+    <div key={i} className="h-56 md:h-64 rounded-md overflow-hidden">
+      <img
+        src={src}
+        alt="Community training moment"
+        className="h-full w-full object-cover hover:scale-105 transition-transform duration-300"
+      />
+    </div>
+  ))}
+</div>
     </section>
   )
 }

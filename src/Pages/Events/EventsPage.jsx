@@ -30,8 +30,8 @@ export default function EventsPage() {
   }, [category, search, filters.country, filters.city, filters.price]);
 
   return (
-    <div className="min-h-screen bg-zinc-50">
-      <Navbar />
+<div className="flex-1 bg-zinc-50">
+     
       <main className="mx-auto max-w-7xl px-5 pb-10 pt-5 lg:px-8">
         <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-baseline gap-3">
@@ -80,7 +80,7 @@ export default function EventsPage() {
           </p>
         )}
       </main>
-      <Footer />
+     
     </div>
   );
 }

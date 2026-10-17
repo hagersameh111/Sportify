@@ -11,17 +11,17 @@ import CTASection from "./components/CTASection";
 export default function LandingPage() {
   return (
     <div className="min-h-screen bg-zinc-50">
-      <Navbar />
+    
       <Hero />
       <EventsSection />
       <TeamsSection />
       <GallerySection />
-
-       <ProductsSection />
-      <BrandsSection />
-     <CTASection />
+         <BrandsSection />
+         <ProductsSection />
+    
+     {/* <CTASection /> */}
       <AdSlot />
-      <Footer />
+     
     </div>
   );
 }

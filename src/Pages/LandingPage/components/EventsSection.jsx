@@ -28,9 +28,11 @@ export default function EventsSection() {
       </div>
 
       {matching.length ? (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {matching.slice(0, LIMIT).map((event) => <EventCard key={event.id} event={event} />)}
-        </div>
+        <div className="grid items-stretch gap-4 sm:grid-cols-2 lg:grid-cols-3">
+  {matching.slice(0, LIMIT).map((event) => (
+    <EventCard key={event.id} event={event} />
+  ))}
+</div>
       ) : (
         <p className="rounded-xl border border-dashed border-zinc-300 bg-white py-10 text-center text-sm text-zinc-500">
           No events match these filters. Try another city or price.
