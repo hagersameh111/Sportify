@@ -160,13 +160,10 @@ export default function GamesPage() {
         {/* Page heading */}
         <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
           <div>
-            <div className="mb-2 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-violet-600">
-              <span className="h-2 w-2 rounded-full bg-violet-600" />
-              SPORTIFY COMMUNITY
-            </div>
-
             <h1 className="text-3xl font-black tracking-tight text-zinc-900 sm:text-4xl">
-              Find a <span className="text-violet-600">Game</span>
+              Find a  <span className="bg-gradient-to-r from-[#5c47e8] via-[#5c25dc] to-[#C737E4] bg-clip-text text-transparent">
+              Game
+            </span>
             </h1>
 
             <p className="mt-2 max-w-xl text-sm leading-relaxed text-zinc-500 sm:text-base">

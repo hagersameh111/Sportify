@@ -67,6 +67,7 @@ export default function CreateGameModal({
           <div>
             <h2 id="create-game-title" className="text-2xl font-black text-zinc-900">
               Create a Game
+              
             </h2>
             <p className="mt-1 text-sm text-zinc-500">
               Set up a friendly game and find your players.
