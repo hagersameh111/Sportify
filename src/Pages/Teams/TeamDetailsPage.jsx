@@ -14,12 +14,12 @@ export default function TeamDetailsPage() {
   if (!team) {
     return (
       <>
-        <Navbar />
+        
         <div className="flex min-h-[60vh] flex-col items-center justify-center gap-3">
           <h1 className="text-2xl font-black">Team not found</h1>
           <Link to="/teams" className="font-bold text-violet-700 hover:underline">Browse all teams</Link>
         </div>
-        <Footer />
+      
       </>
     );
   }
@@ -35,7 +35,7 @@ export default function TeamDetailsPage() {
 
   return (
     <div className="min-h-screen bg-zinc-50">
-      <Navbar />
+    
 
       <section className="relative h-[260px] overflow-hidden md:h-[320px]">
         <img src={team.heroImage} alt="" className="h-full w-full object-cover" />
@@ -116,7 +116,7 @@ export default function TeamDetailsPage() {
         </div>
       </main>
 
-      <Footer />
+      
       {showModal && <JoinTeamModal team={team} onClose={() => setShowModal(false)} />}
     </div>
   );

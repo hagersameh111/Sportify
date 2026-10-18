@@ -6,8 +6,9 @@ const links = [
   { label: "HOME", href: "/" },
   { label: "EVENTS", href: "/events" },
   { label: "TEAMS", href: "/teams" },
-  { label: "Find a Game", href: "/games" },
+  { label: "Find A Game", href: "/games" },
   { label: "COMMUNITY", href: "/#community" },
+  { label: "STORE", href: "/store" },
 ];
 
 export default function Navbar() {
