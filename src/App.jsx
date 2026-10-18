@@ -14,6 +14,7 @@ import GuestRegistrationPage from "./Pages/Events/GuestRegistrationPage";
 import Register from "./Pages/Events/Register";
 import TrainingPage from "./Pages/Training/TrainingPage";
 import SignupPage from "./Pages/SignupPage";
+import GamesPage from "./Pages/Games/GamesPage";
 
 // Admin is lazy-loaded so it stays out of the public bundle
 const AdminApp = lazy(() => import("./Admin/AdminApp"));
@@ -34,6 +35,7 @@ export default function App() {
             <Route path="/training" element={<TrainingPage />} />
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/signin" element={<SignInPage />} />
+            <Route path="/games" element={<GamesPage />} />
             <Route
               path="/guest-registration"
               element={<GuestRegistrationPage />}

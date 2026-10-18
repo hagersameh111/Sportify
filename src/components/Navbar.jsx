@@ -6,7 +6,7 @@ const links = [
   { label: "HOME", href: "/" },
   { label: "EVENTS", href: "/events" },
   { label: "TEAMS", href: "/teams" },
-  { label: "TRAINING", href: "/training" },
+  { label: "Find a Game", href: "/games" },
   { label: "COMMUNITY", href: "/#community" },
 ];
 
