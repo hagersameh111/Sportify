@@ -6,6 +6,7 @@ import Footer from "../../components/Footer";
 import JoinTeamModal from "./JoinTeamModal";
 import { teams } from "../../data/teams";
 
+
 export default function TeamDetailsPage() {
   const { id } = useParams();
   const [showModal, setShowModal] = useState(false);
@@ -68,22 +69,29 @@ export default function TeamDetailsPage() {
         <div className="grid gap-8 lg:grid-cols-[1fr_340px]">
           <div className="space-y-8">
             <section>
-              <h2 className="mb-3 text-xl font-black">About the team</h2>
+                  <h2 className="mb-5 text-sm font-semibold italic uppercase tracking-widest text-blue-700">About the team</h2>
               <p className="max-w-3xl leading-7 text-zinc-600">{team.description}</p>
             </section>
 
-            {team.schedule?.length > 0 && (
-              <section>
-                <h2 className="mb-3 text-xl font-black">Training schedule</h2>
-                <ul className="divide-y divide-zinc-100 overflow-hidden rounded-xl border border-zinc-200 bg-white">
-                  {team.schedule.map((item, i) => <li key={i} className="px-4 py-3 text-sm text-zinc-700">{item}</li>)}
-                </ul>
-              </section>
-            )}
+          {team.schedule?.length > 0 && (
+  <section>
+    <h2 className="mb-5 text-sm font-semibold italic uppercase tracking-widest text-blue-700">
+      Training schedule
+    </h2>
+    <ul className="space-y-4">
+      {team.schedule.map((item, i) => (
+        <li key={i} className="flex items-center gap-4 text-base text-zinc-600">
+          <span className="h-2 w-2 shrink-0 rounded-full bg-fuchsia-500" aria-hidden="true" />
+          {item}
+        </li>
+      ))}
+    </ul>
+  </section>
+)}
 
             {team.coaches?.length > 0 && (
               <section>
-                <h2 className="mb-3 text-xl font-black">Captains &amp; coaches</h2>
+                    <h2 className="mb-5 text-sm font-semibold italic uppercase tracking-widest text-blue-700">Captains &amp; coaches</h2>
                 <div className="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4">
                   {team.coaches.map((p) => (
                     <article key={p.name} className="overflow-hidden rounded-xl border border-zinc-200 bg-white">
@@ -101,18 +109,45 @@ export default function TeamDetailsPage() {
           </div>
 
           <aside>
-            <div className="sticky top-24 rounded-xl border border-zinc-200 bg-white p-6 shadow-sm">
-              <h2 className="text-lg font-black">{team.name}</h2>
-              <p className="mt-1 flex items-center gap-1.5 text-sm text-zinc-500"><MapPin size={14} />{cities}</p>
-              <button
-                onClick={() => setShowModal(true)}
-                className="mt-5 h-12 w-full rounded-lg bg-violet-600 font-bold text-white transition-colors hover:bg-violet-700 focus-visible:ring-2 focus-visible:ring-violet-300"
-              >
-                Join the team
-              </button>
-              <p className="mt-3 text-center text-xs text-zinc-500">The team captain reviews your request within 48 hours.</p>
-            </div>
-          </aside>
+  <div className="sticky top-24 rounded-xl border border-white/5 bg-[#1b1e20]/92 p-8 shadow-lg">
+    <p className="font-mono text-sm uppercase tracking-wider text-fuchsia-400">
+      {team.members} Members
+    </p>
+
+    <h2 className="mt-3 text-3xl font-black italic uppercase leading-tight text-white">
+      {team.name}
+    </h2>
+
+    <hr className="my-6 border-white/10" />
+
+    <dl className="space-y-4 text-base">
+      {[
+        ["Sport", team.sport],
+        ["Members", team.members],
+        ["Level", team.level],
+        ["Founded", team.founded],
+      ]
+        .filter(([, value]) => value)
+        .map(([label, value]) => (
+          <div key={label} className="flex items-center justify-between gap-4">
+            <dt className="text-zinc-400">{label}</dt>
+            <dd className="text-right font-bold text-white">{value}</dd>
+          </div>
+        ))}
+    </dl>
+
+    <button
+      onClick={() => setShowModal(true)}
+      className="mt-8 h-14 w-full rounded-md bg-fuchsia-500 text-base font-bold uppercase tracking-[0.15em] text-white transition-colors hover:bg-fuchsia-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-fuchsia-300"
+    >
+      Request to join
+    </button>
+
+    <p className="mt-6 text-center text-sm leading-6 text-zinc-400">
+      The team captain will review your request within 48 hours.
+    </p>
+  </div>
+</aside>
         </div>
       </main>
 
