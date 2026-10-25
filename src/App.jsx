@@ -3,7 +3,7 @@ import { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import Layout from "./components/Layout";
-
+import StoreLayout from "./Pages/Store/StoreLayout";
 import LandingPage from "./Pages/LandingPage/LandingPage";
 import TeamsPage from "./Pages/Teams/teams";
 import TeamDetailsPage from "./Pages/Teams/TeamDetailsPage";
@@ -15,6 +15,10 @@ import Register from "./Pages/Events/Register";
 import TrainingPage from "./Pages/Training/TrainingPage";
 import SignupPage from "./Pages/SignupPage";
 import GamesPage from "./Pages/Games/GamesPage";
+import StorePage from "./Pages/Store/StorePage";
+import ProductDetailsPage from "./Pages/Store/ProductDetailsPage";
+import WishlistPage from "./Pages/Store/Wishlist/WishlistPage";
+import CartPage from "./Pages/Store/Cart/CartPage";
 
 // Admin is lazy-loaded so it stays out of the public bundle
 const AdminApp = lazy(() => import("./Admin/AdminApp"));
@@ -36,6 +40,15 @@ export default function App() {
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/signin" element={<SignInPage />} />
             <Route path="/games" element={<GamesPage />} />
+            <Route element={<StoreLayout />}>
+          <Route path="/store" element={<StorePage />} />
+          <Route
+            path="/store/:id"
+            element={<ProductDetailsPage />}
+          />
+        </Route>
+            <Route path="/cart" element={<CartPage />} />
+            <Route path="/wishlist" element={<WishlistPage />} />
             <Route
               path="/guest-registration"
               element={<GuestRegistrationPage />}
