@@ -16,9 +16,7 @@ export default function Footer() {
     <footer className="bg-black text-white pt-16 pb-8">
       <div className="max-w-7xl mx-auto px-5 md:px-8 grid grid-cols-1 md:grid-cols-4 gap-10">
         <div className="md:col-span-1">
-          <p className="font-display text-lg">
-            SP<span className="text-violet-650">●</span>RTIFY
-          </p>
+         <img src="/sportifylogo.svg" alt="" />
           <p className="text-white/50 text-sm mt-4 leading-relaxed">
             The digital heartbeat of the global sports community. Join the movement and push
             your limits.
